@@ -170,8 +170,21 @@ const SECRETS_MAPPING = {
     },
     WUNDERLIST_CLIENT_SECRET: {
         dev: "",
-        prod: ""
-    }
+        prod: "",
+    },
+
+    /*
+     * Foursquare OAuth app secrets (optional)
+     * https://foursquare.com/developers/app
+     */
+    FOURSQUARE_CLIENT_ID: {
+        dev: "",
+        prod: "",
+    },
+    FOURSQUARE_CLIENT_SECRET: {
+        dev: "",
+        prod: "",
+    },
 };
 /* eslint-enable no-useless-escape */
 
