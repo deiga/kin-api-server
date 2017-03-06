@@ -69,8 +69,7 @@
     "vinyl-fs": "^2.4.4"
   },
   "scripts": {
-    "build:dev": "NODE_ENV=dev gulp servers",
-    "start:dev": "NODE_ENV=dev gulp pm && npm start",
+    "build:dev": "NODE_ENV=dev gulp servers && gulp pm",
     "start": "pm2 start pm.json",
     "watch:dev": "NODE_ENV=dev gulp watch"
   }
