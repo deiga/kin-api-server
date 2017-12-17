@@ -17,7 +17,7 @@ const env = require("./env");
  *  prod: <ip used to reach the server>
  */
 const API_HOST = {
-    dev: "",
+    dev: "dev.kin.today",
     prod: ""
 }[env];
 
@@ -27,7 +27,7 @@ const API_HOST = {
  * e.g: 8080
  */
 const API_PORT = {
-    dev: 0,
+    dev: 8999,
     prod: 0
 }[env];
 
@@ -37,11 +37,11 @@ const API_PORT = {
  * e.g: kin.today / static.kin.today
  */
 const API_HOSTNAME = {
-    dev: "",
+    dev: "dev.kin.today:8999",
     prod: ""
 }[env];
 const STATIC_HOSTNAME = {
-    dev: "",
+    dev: "dev.kin.today:8080",
     prod: ""
 }[env];
 
