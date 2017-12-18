@@ -6,6 +6,8 @@ const bluebird = require('bluebird');
 const moment = require('moment-timezone');
 const _ = require('lodash');
 
+const DATE_TIME_FORMAT = "YYYY-MM-DDTHH:mm:ss";
+
 function _format_checkin(layer_id, checkin) {
     const output = {
         id: merge_ids(layer_id, checkin.id),
@@ -16,13 +18,13 @@ function _format_checkin(layer_id, checkin) {
         kind: 'event#basic',
     };
 
-    const startTimeUTC = checkin.createdAt + checkin.timeZoneOffset * 60;
+    const startTimeUTC = checkin.createdAt;
     output.start = {
-        date_time: moment(startTimeUTC, 'X').format(),
+        date_time: moment(startTimeUTC, 'X').format(DATE_TIME_FORMAT),
     };
     const endTimeUTC = startTimeUTC + FOURSQUARE_DEFAULT_EVENT_DURATION;
     output.end = {
-        date_time: moment(endTimeUTC, 'X').format(),
+        date_time: moment(endTimeUTC, 'X').format(DATE_TIME_FORMAT),
     };
 
     return output;
