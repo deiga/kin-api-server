@@ -6,22 +6,23 @@ const bluebird = require('bluebird');
 const moment = require('moment-timezone');
 const _ = require('lodash');
 
-function _format_event(layer_id, event) {
+function _format_checkin(layer_id, checkin) {
     const output = {
-        id: merge_ids(layer_id, event.id),
-        title: event.name,
-        location: _.get(event, 'venue.name', ''),
-        description: _.get(event, 'description', '').replace(/<(?:.|\n)*?>/gm, ''),
-        link: event.link,
+        id: merge_ids(layer_id, checkin.id),
+        title: checkin.venue.name,
+        location: checkin.venue.location.address,
+        description: '',
+        link: `https://foursquare.com/self/checkin/${checkin.id}`,
         kind: 'event#basic',
     };
 
+    const startTimeUTC = checkin.createdAt + checkin.timeZoneOffset * 60;
     output.start = {
-        date_time: moment.tz(event.time, 'utc').format(),
+        date_time: moment(startTimeUTC, 'X').format(),
     };
-    const end_timestamp = event.time + _.get(event, 'duration', FOURSQUARE_DEFAULT_EVENT_DURATION);
+    const endTimeUTC = startTimeUTC + FOURSQUARE_DEFAULT_EVENT_DURATION;
     output.end = {
-        date_time: moment.tz(end_timestamp, 'utc').format(),
+        date_time: moment(endTimeUTC, 'X').format(),
     };
 
     return output;
@@ -33,8 +34,8 @@ function _format_event(layer_id, event) {
 function load_layers(req, source) {
     return bluebird.resolve([
         {
-            id: merge_ids(source.id, 'events_attending'),
-            title: 'My Checkins',
+            id: merge_ids(source.id, 'places_checked_in'),
+            title: "Places I've Checked in",
             color: '#0732a2',
             text_color: '#FFFFFF',
             acl: {
@@ -53,10 +54,13 @@ function load_layers(req, source) {
 
 function load_events(req, source, layer_id) {
     return new FoursquareRequest(req, source.id)
-        .api('self/events')
+        .api('users/self/checkins')
         .then((foursquare_res) => { // eslint-disable-line arrow-body-style
             return {
-                events: _.map(foursquare_res, _.partial(_format_event, layer_id)),
+                events: _.map(
+                  foursquare_res.response.checkins.items,
+                  _.partial(_format_checkin, layer_id)
+                ),
             };
         });
 }

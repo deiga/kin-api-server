@@ -1,18 +1,12 @@
-// const nuddles = require('nuddles');
 const _ = require('lodash');
 
 const KinRequest = require('../kin_request');
 const { logger } = require('../../config');
 
-const FOURSQUARE_API_BASE_URL = 'https://api.foursquare.com/v2';
+const FOURSQUARE_API_BASE_URL = 'https://api.foursquare.com/v2/';
+const FOURSQUARE_API_VERSION = '20171217';
 const FOURSQUARE_API_TIMEOUT = 4 * 1000;
-const FOURSQUARE_DEFAULT_EVENT_DURATION = 3 * 60 * 60 * 1000;
-
-// const client = new nuddles.Client({
-//     clientId: secrets.get('FOURSQUARE_CLIENT_ID'),
-//     clientSecret: secrets.get('FOURSQUARE_CLIENT_SECRET'),
-//     redirectUri: `https://${STATIC_HOSTNAME}`
-// });
+const FOURSQUARE_DEFAULT_EVENT_DURATION = 45 * 60;
 
 class FoursquareRequest extends KinRequest {
     constructor(req, source_id) {
@@ -31,7 +25,8 @@ class FoursquareRequest extends KinRequest {
     api_request_options(access_token, overrides) {
         return _.merge({
             qs: {
-                access_token
+                oauth_token: access_token,
+                v: FOURSQUARE_API_VERSION
             },
             json: true,
             timeout: FOURSQUARE_API_TIMEOUT,
