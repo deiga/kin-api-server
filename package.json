@@ -40,7 +40,8 @@
     "request": "^2.76.0",
     "request-promise-native": "^1.0.3",
     "stripe": "^4.22.0",
-    "xml2js": "^0.4.17"
+    "xml2js": "^0.4.17",
+    "snyk": "^1.83.0"
   },
   "devDependencies": {
     "brfs": "^1.4.3",
@@ -74,6 +75,9 @@
     "start": "pm2 start pm.json",
     "test": "NODE_ENV=dev gulp test",
     "test-watch": "NODE_ENV=dev gulp test-watch",
-    "watch:dev": "NODE_ENV=dev gulp watch"
-  }
+    "watch:dev": "NODE_ENV=dev gulp watch",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
+  },
+  "snyk": true
 }
