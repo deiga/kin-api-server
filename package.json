@@ -36,7 +36,7 @@
     "passport-outlook": "^2.1.0",
     "passport-todoist": "^0.1.2",
     "passport-trello": "^0.1.5",
-    "prom-client": "^9.0.0",
+    "prom-client": "^11.3.0",
     "request": "^2.76.0",
     "request-promise-native": "^1.0.3",
     "stripe": "^4.22.0",
