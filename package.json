@@ -23,7 +23,7 @@
     "jws": "^3.1.4",
     "jwt-redis-session": "^1.0.4",
     "lodash": "^4.5.1",
-    "log4js": "^1.0.1",
+    "log4js": "^6.0.0",
     "moment": "^2.13.0",
     "moment-timezone": "^0.5.4",
     "passport": "^0.3.2",
